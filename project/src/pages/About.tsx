@@ -25,13 +25,7 @@ function About() {
             </a>
           </div>
         </div>
-        <div className="mt-8 lg:mt-0 lg:w-1/2">
-          <img
-            className="rounded-lg shadow-lg object-cover"
-            src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-            alt="Developer workspace"
-          />
-        </div>
+       
       </div>
 
       {/* Values Section */}
