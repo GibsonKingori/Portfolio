@@ -70,7 +70,7 @@ function App() {
                 <a href="https://github.com" className="text-gray-400 hover:text-purple-400 transition-colors">
                   <Github size={20} />
                 </a>
-                <a href="https://linkedin.com" className="text-gray-400 hover:text-purple-400 transition-colors">
+                <a href="https://www.linkedin.com/in/gibson-king-ori-9727362ba/" className="text-gray-400 hover:text-purple-400 transition-colors">
                   <Linkedin size={20} />
                 </a>
                 <a href="mailto:kingorigib@gmail.com" className="text-gray-400 hover:text-purple-400 transition-colors">

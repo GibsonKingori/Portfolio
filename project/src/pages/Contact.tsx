@@ -39,8 +39,8 @@ function Contact() {
                 <MapPin className="h-6 w-6 text-purple-400" />
               </div>
               <div className="ml-3 text-base text-gray-300">
-                <p>123 Developer Street</p>
-                <p>Tech City, TC 12345</p>
+                <p>Kahawa Sukari</p>
+                <p>Nairobi City, 00620</p>
               </div>
             </div>
 
@@ -49,7 +49,7 @@ function Contact() {
                 <Phone className="h-6 w-6 text-purple-400" />
               </div>
               <div className="ml-3 text-base text-gray-300">
-                <p>+1 (555) 123-4567</p>
+                <p>+254115074052</p>
               </div>
             </div>
 
@@ -58,7 +58,7 @@ function Contact() {
                 <Mail className="h-6 w-6 text-purple-400" />
               </div>
               <div className="ml-3 text-base text-gray-300">
-                <p>contact@example.com</p>
+                <p>kingorigib@gmail.com</p>
               </div>
             </div>
           </dl>
