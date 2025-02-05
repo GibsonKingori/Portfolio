@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-900;
+  @apply bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950;
+  background-attachment: fixed;
 }
 
 /* Custom scrollbar */
@@ -12,9 +13,60 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-800;
+  @apply bg-gray-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-purple-600 rounded-full hover:bg-purple-500;
+  @apply bg-indigo-900 rounded-full hover:bg-indigo-800;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 10s linear infinite;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Neon effects */
+.neon-border {
+  box-shadow: 0 0 5px theme('colors.indigo.700'),
+              0 0 10px theme('colors.indigo.700'),
+              inset 0 0 5px theme('colors.indigo.700');
+}
+
+.neon-text {
+  text-shadow: 0 0 5px theme('colors.indigo.700'),
+               0 0 10px theme('colors.indigo.700');
+}
+
+/* Animated gradient background */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animate {
+  background: linear-gradient(-45deg, #1e1b4b, #1e1b4b, #0f172a, #1e1b4b);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
