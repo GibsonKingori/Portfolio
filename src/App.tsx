@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 import Home from './pages/Home';
