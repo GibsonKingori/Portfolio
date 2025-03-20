@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, MapPin, Phone, Mail } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -10,8 +11,16 @@ function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+
+    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs from EmailJS.
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_USER_ID')
+      .then((result) => {
+        console.log('Email sent successfully:', result.text);
+        // Optionally reset form or display a success message
+      })
+      .catch((error) => {
+        console.error('Failed to send email:', error.text);
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,12 +36,13 @@ function Contact() {
       <div className="lg:grid lg:grid-cols-2 lg:gap-8">
         {/* Contact Information */}
         <div>
-          <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400 neon-text">Get in Touch</h2>
+          <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400 neon-text">
+            Get in Touch
+          </h2>
           <p className="mt-4 text-lg text-gray-300">
             I'm always open to new opportunities and interesting projects.
             Feel free to reach out!
           </p>
-
           <dl className="mt-8 space-y-6">
             <div className="glass p-4 rounded-xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center">
@@ -45,7 +55,6 @@ function Contact() {
                 </div>
               </div>
             </div>
-
             <div className="glass p-4 rounded-xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-gradient-to-r from-indigo-700 to-blue-700 rounded-lg flex items-center justify-center neon-border">
@@ -56,7 +65,6 @@ function Contact() {
                 </div>
               </div>
             </div>
-
             <div className="glass p-4 rounded-xl transform hover:scale-105 transition-all duration-300">
               <div className="flex items-center">
                 <div className="w-10 h-10 bg-gradient-to-r from-indigo-700 to-blue-700 rounded-lg flex items-center justify-center neon-border">
@@ -69,7 +77,6 @@ function Contact() {
             </div>
           </dl>
         </div>
-
         {/* Contact Form */}
         <div className="mt-12 lg:mt-0">
           <form onSubmit={handleSubmit} className="glass p-6 rounded-xl space-y-6">
