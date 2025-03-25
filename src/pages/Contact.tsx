@@ -3,8 +3,7 @@ import { Send, MapPin, Phone, Mail } from 'lucide-react';
 import emailjs from 'emailjs-com';
 import { EMAIL_ID, SERVICE_MAIL_ID, USER_ID } from '../config';
 
-// Extend FormData with an index signature to satisfy the type requirement
-interface FormData extends Record<string, string> {
+interface FormData {
   name: string;
   email: string;
   message: string;
@@ -24,7 +23,6 @@ const Contact: React.FC = () => {
     setLoading(true);
     setStatus('idle');
 
-    // Ensure that the keys in formData match your EmailJS template variables (e.g., {{name}}, {{email}}, {{message}})
     emailjs
       .send(SERVICE_MAIL_ID, EMAIL_ID, formData, USER_ID)
       .then((result) => {
@@ -94,6 +92,7 @@ const Contact: React.FC = () => {
             </div>
           </dl>
         </div>
+
         {/* Contact Form */}
         <div className="mt-12 lg:mt-0">
           <form onSubmit={handleSubmit} className="glass p-6 rounded-xl space-y-6">
