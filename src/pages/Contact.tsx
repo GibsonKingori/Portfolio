@@ -1,31 +1,48 @@
 import React, { useState } from 'react';
 import { Send, MapPin, Phone, Mail } from 'lucide-react';
 import emailjs from 'emailjs-com';
+import { EMAIL_ID, SERVICE_MAIL_ID, USER_ID } from '../config';
 
-function Contact() {
-  const [formData, setFormData] = useState({
+// Extend FormData with an index signature to satisfy the type requirement
+interface FormData extends Record<string, string> {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const Contact: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: '',
   });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setStatus('idle');
 
-    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs from EmailJS.
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData, 'YOUR_USER_ID')
+    // Ensure that the keys in formData match your EmailJS template variables (e.g., {{name}}, {{email}}, {{message}})
+    emailjs
+      .send(SERVICE_MAIL_ID, EMAIL_ID, formData, USER_ID)
       .then((result) => {
         console.log('Email sent successfully:', result.text);
-        // Optionally reset form or display a success message
+        setLoading(false);
+        setStatus('success');
+        setFormData({ name: '', email: '', message: '' }); // Reset form on success
       })
       .catch((error) => {
         console.error('Failed to send email:', error.text);
+        setLoading(false);
+        setStatus('error');
       });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -134,17 +151,32 @@ function Contact() {
             <div>
               <button
                 type="submit"
-                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 neon-border"
+                disabled={loading}
+                className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 neon-border disabled:opacity-50"
               >
-                <Send className="h-5 w-5 mr-2" />
-                Send Message
+                {loading ? 'Sending...' : (
+                  <>
+                    <Send className="h-5 w-5 mr-2" />
+                    Send Message
+                  </>
+                )}
               </button>
             </div>
+            {status === 'success' && (
+              <div className="text-green-500 text-center">
+                Your message has been sent successfully!
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="text-red-500 text-center">
+                Something went wrong. Please try again later.
+              </div>
+            )}
           </form>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Contact;
