@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Send, MapPin, Phone, Mail } from 'lucide-react';
 import emailjs from 'emailjs-com';
-import { EMAIL_ID, SERVICE_MAIL_ID, USER_ID } from '../config';
+import { SERVICE_MAIL_ID, TEMPLATE_AUTO_REPLY, TEMPLATE_OWNER_NOTIFICATION, USER_ID } from '../config';
 
-interface FormData {
+// Extend FormData with an index signature so it satisfies EmailJS’s parameter type
+interface FormData extends Record<string, string> {
   name: string;
   email: string;
   message: string;
@@ -23,16 +24,35 @@ const Contact: React.FC = () => {
     setLoading(true);
     setStatus('idle');
 
-    emailjs
-      .send(SERVICE_MAIL_ID, EMAIL_ID, formData, USER_ID)
-      .then((result) => {
-        console.log('Email sent successfully:', result.text);
+    // Build parameters for the auto reply email to the sender
+    const autoReplyParams = {
+      to_email: formData.email, // EmailJS template variable e.g., {{to_email}}
+      name: formData.name,      // e.g., {{name}}
+      reply_message: "Thank you for contacting us. We have received your message and will get back to you shortly." // custom message for auto reply
+    };
+
+    // Build parameters for the owner's notification email
+    const ownerNotificationParams = {
+      from_name: formData.name, // e.g., {{from_name}}
+      from_email: formData.email, // e.g., {{from_email}}
+      message: formData.message   // e.g., {{message}}
+    };
+
+    // Send both emails concurrently using Promise.all
+    Promise.all([
+      emailjs.send(SERVICE_MAIL_ID, TEMPLATE_AUTO_REPLY, autoReplyParams, USER_ID),
+      emailjs.send(SERVICE_MAIL_ID, TEMPLATE_OWNER_NOTIFICATION, ownerNotificationParams, USER_ID)
+    ])
+      .then(([autoReplyResult, ownerResult]) => {
+        console.log('Auto reply sent:', autoReplyResult.text);
+        console.log('Owner notification sent:', ownerResult.text);
         setLoading(false);
         setStatus('success');
-        setFormData({ name: '', email: '', message: '' }); // Reset form on success
+        // Reset the form after successful sending
+        setFormData({ name: '', email: '', message: '' });
       })
       .catch((error) => {
-        console.error('Failed to send email:', error.text);
+        console.error('Error sending emails:', error.text);
         setLoading(false);
         setStatus('error');
       });
@@ -92,7 +112,6 @@ const Contact: React.FC = () => {
             </div>
           </dl>
         </div>
-
         {/* Contact Form */}
         <div className="mt-12 lg:mt-0">
           <form onSubmit={handleSubmit} className="glass p-6 rounded-xl space-y-6">
