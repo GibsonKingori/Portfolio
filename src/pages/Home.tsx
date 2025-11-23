@@ -1,4 +1,3 @@
-import React from 'react';
 import { ArrowRight, Code, Layout, Server, Globe, Lightbulb, TreePine, Users2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import gibsonImage from '../asset/gibson.jpg';
@@ -14,7 +13,8 @@ function Home() {
         'Designed an HTML page for travel packages',
         'Implemented responsive design for better accessibility'
       ],
-      icon: <Globe className="h-6 w-6" />
+      icon: <Globe className="h-6 w-6" />,
+      link: '/projects/travel-agency'
     },
     {
       title: 'JavaScript Light Switch',
@@ -25,7 +25,8 @@ function Home() {
         'Integrated dynamic light bulb effects',
         'Designed interactive UI with background changes'
       ],
-      icon: <Lightbulb className="h-6 w-6" />
+      icon: <Lightbulb className="h-6 w-6" />,
+      link: '/projects/light-switch'
     },
     {
       title: 'Binary Tree Implementation',
@@ -36,7 +37,8 @@ function Home() {
         'Implemented tree traversal algorithms',
         'Used object-oriented programming principles'
       ],
-      icon: <TreePine className="h-6 w-6" />
+      icon: <TreePine className="h-6 w-6" />,
+      link: '/projects/binary-tree'
     },
     {
       title: 'Employee Management System',
@@ -48,7 +50,8 @@ function Home() {
         'Implemented exception handling',
         'Created user-friendly I/O interface'
       ],
-      icon: <Users2 className="h-6 w-6" />
+      icon: <Users2 className="h-6 w-6" />,
+      link: '/projects/employee-management'
     }
   ];
 
@@ -183,6 +186,14 @@ function Home() {
                       {tech}
                     </span>
                   ))}
+                </div>
+                <div className="mt-6">
+                  <Link
+                    to={project.link}
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                  >
+                    Launch Project <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
                 </div>
               </div>
             </div>

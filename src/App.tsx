@@ -4,6 +4,10 @@ import { Menu, X, Github, Linkedin, Mail } from 'lucide-react';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import TravelAgency from './pages/projects/TravelAgency';
+import LightSwitch from './pages/projects/LightSwitch';
+import BinaryTree from './pages/projects/BinaryTree';
+import EmployeeManagement from './pages/projects/EmployeeManagement';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -20,7 +24,7 @@ function App() {
                   Gibson King'ori
                 </Link>
               </div>
-              
+
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-8">
                 <Link to="/" className="text-gray-400 hover:text-indigo-400 transition-all duration-300 hover:scale-105">Home</Link>
@@ -58,6 +62,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/projects/travel-agency" element={<TravelAgency />} />
+            <Route path="/projects/light-switch" element={<LightSwitch />} />
+            <Route path="/projects/binary-tree" element={<BinaryTree />} />
+            <Route path="/projects/employee-management" element={<EmployeeManagement />} />
           </Routes>
         </main>
 
