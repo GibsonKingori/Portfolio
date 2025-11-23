@@ -1,5 +1,6 @@
 import { Award, BookOpen, Coffee } from 'lucide-react';
 import gibsonImage from '../asset/gibson.jpg';
+import cvFile from '../asset/Gibson_Kingori_CV.pdf';
 
 function About() {
   return (
@@ -17,11 +18,12 @@ function About() {
           </p>
           <div className="mt-6">
             <a
-              href="/Gibson_Kingori_CV.pdf"
-              download
+              href={cvFile}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gradient-to-r from-indigo-700 to-blue-700 hover:from-indigo-800 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 neon-border"
             >
-              Download CV
+              View CV
             </a>
           </div>
         </div>
